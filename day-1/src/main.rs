@@ -1,5 +1,5 @@
 use day_1::*;
 
 fn main() {
-    println!("{}", add(2, 2))
+    println!("{}", find_calibration_value("13".into()))
 }

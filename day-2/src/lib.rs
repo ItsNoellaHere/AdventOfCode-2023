@@ -1,10 +1,10 @@
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Game {
     pub id: usize,
     pub rounds: Vec<Round>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default, PartialEq, PartialOrd)]
 pub struct Round {
     pub red: usize,
     pub green: usize,
@@ -54,7 +54,7 @@ pub mod part_1 {
     impl Game {
         pub fn check_game(&self, total: &Round) -> bool {
             for round in &self.rounds {
-                if round.red > total.red || round.green > total.green || round.blue > total.blue {
+                if round > total {
                     return false;
                 }
             }
@@ -81,43 +81,31 @@ pub mod part_1 {
 pub mod part_2 {
     use super::*;
 
-    pub fn find_minimum_cubes(game: &Game) -> Round {
-        game.rounds.iter().fold(
+    impl Round {
+        fn combine(self, other: &Round) -> Round {
             Round {
-                red: 0,
-                green: 0,
-                blue: 0,
-            },
-            |acc, round| Round {
-                red: if acc.red < round.red {
-                    round.red
-                } else {
-                    acc.red
-                },
-                green: if acc.green < round.green {
-                    round.green
-                } else {
-                    acc.green
-                },
-                blue: if acc.blue < round.blue {
-                    round.blue
-                } else {
-                    acc.blue
-                },
-            },
-        )
+                red: std::cmp::max(self.red, other.red),
+                green: std::cmp::max(self.green, other.green),
+                blue: std::cmp::max(self.blue, other.blue),
+            }
+        }
+    }
+
+    pub fn find_minimum_cubes(game: &Game) -> Round {
+        game.rounds.iter().fold(Round::default(), Round::combine)
     }
 
     pub fn sum_of_power(input: &Vec<String>) -> usize {
-        input.iter().map(|game| {
-            build_game(game).unwrap_or(Game {
-                id: 0,
-                rounds: vec![],
+        input
+            .iter()
+            .map(|game| {
+                build_game(game).unwrap_or_default()
             })
-        }).map(|game| {
-            let minimum = find_minimum_cubes(&game);
-            minimum.red * minimum.green * minimum.blue
-        }).sum::<usize>()
+            .map(|game| {
+                let minimum = find_minimum_cubes(&game);
+                minimum.red * minimum.green * minimum.blue
+            })
+            .sum::<usize>()
     }
 }
 

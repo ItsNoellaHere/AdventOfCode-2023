@@ -1,5 +1,5 @@
 use day_3::part_1;
-// use day_3::part_2;
+use day_3::part_2;
 use std::fs;
 use std::env;
 
@@ -14,7 +14,7 @@ fn main() {
     let data = read_file(&args[1]);
 
     println!("Part 1 -> {}", part_1::sum_of_part_numbers(&data));
-    // println!("Part 2 -> {}", part_2::sum_of_power(&data));
+    println!("Part 2 -> {}", part_2::sum_of_gear_ratios(&data));
 }
 
 fn read_file(filename: &str) -> Vec<String> {

@@ -13,7 +13,7 @@ fn main() {
 
     let data = read_file(&args[1]);
 
-    println!("Part 1 -> {}", part_1::sum_of_invalid_games(&data, &total));
+    println!("Part 1 -> {}", part_1::sum_of_part_numbers(&data));
     // println!("Part 2 -> {}", part_2::sum_of_power(&data));
 }
 

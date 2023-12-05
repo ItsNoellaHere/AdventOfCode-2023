@@ -1,5 +1,5 @@
 use day_4::part_1;
-// use day_4::part_2;
+use day_4::part_2;
 use std::fs;
 use std::env;
 
@@ -14,7 +14,7 @@ fn main() {
     let data = read_file(&args[1]);
 
     println!("Part 1 -> {}", part_1::sum_of_points(&data));
-    // println!("Part 2 -> {}", part_2::sum_of_gear_ratios(&data));
+    println!("Part 2 -> {}", part_2::sum_of_cards(&data));
 }
 
 fn read_file(filename: &str) -> Vec<String> {
@@ -23,5 +23,6 @@ fn read_file(filename: &str) -> Vec<String> {
     contents
         .split("\n")
         .map(|s| s.to_string())
+        .filter(|s| !s.is_empty())
         .collect::<Vec<String>>()
 }

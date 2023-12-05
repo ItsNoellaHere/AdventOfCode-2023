@@ -57,7 +57,7 @@ pub fn parse_input(input: &Vec<String>) -> Vec<Card> {
                 Ok(n) => Some(n),
                 Err(_) => None,
             })
-        .collect::<Vec<usize>>();
+            .collect::<Vec<usize>>();
         let playing_numbers = numbers
             .next()
             .unwrap()
@@ -67,22 +67,18 @@ pub fn parse_input(input: &Vec<String>) -> Vec<Card> {
                 Ok(n) => Some(n),
                 Err(_) => None,
             })
-        .collect::<Vec<usize>>();
+            .collect::<Vec<usize>>();
         cards.push(Card::new(card_number, winning_numbers, playing_numbers))
     }
     cards
 }
-
 
 pub mod part_1 {
     use super::*;
 
     pub fn sum_of_points(input: &Vec<String>) -> usize {
         let cards = parse_input(input);
-        cards
-            .iter()
-            .map(|card| card.score())
-            .sum::<usize>()
+        cards.iter().map(|card| card.score()).sum::<usize>()
     }
 }
 
@@ -99,7 +95,7 @@ pub mod part_2 {
 
         for card in card_winning_counts.iter().enumerate() {
             let (index, score) = card;
-            for i in index+1..=score+index {
+            for i in index + 1..=score + index {
                 counts[i] += counts[index];
             }
         }
@@ -110,8 +106,8 @@ pub mod part_2 {
 #[cfg(test)]
 mod tests {
     mod part_1 {
-        use super::super::*;
         use super::super::part_1::*;
+        use super::super::*;
 
         #[test]
         fn parse_input_test() {
